@@ -1,0 +1,12 @@
+setup.py
+basic/__init__.py
+basic/__main__.py
+basic/definitions.py
+basic/localDB.py
+basic/services.py
+harmonicIO.egg-info/PKG-INFO
+harmonicIO.egg-info/SOURCES.txt
+harmonicIO.egg-info/dependency_links.txt
+harmonicIO.egg-info/entry_points.txt
+harmonicIO.egg-info/requires.txt
+harmonicIO.egg-info/top_level.txt

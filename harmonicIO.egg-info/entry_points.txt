@@ -1,0 +1,3 @@
+[console_scripts]
+basic = basic.__main__:main
+

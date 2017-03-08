@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     server = smtplib.SMTP('smtp.gmail.com:587')
     server.starttls()
-    server.login('dcp.prto@gmail.com', 'P27xprmnbT')
+    server.login('dcp.prto@gmail.com', 'xxxx')
     server.sendmail('dcp.prto@gmail.com',
                     ['beir.bear@gmail.com', ],
                     msg_full)

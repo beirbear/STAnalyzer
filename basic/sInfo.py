@@ -35,7 +35,7 @@ class SInfo(object):
         self.price_bottomDay = tmp[9]
         self.price_avgDay = tmp[10]
         self.trade_volume = int(tmp[11])
-        self.trade_value = tmp[12]
+        self.trade_value = int(tmp[12])
         self.par_value = tmp[13]
         self.price_ceiling = tmp[14]
         self.price_floor = tmp[15]

@@ -1,7 +1,9 @@
 from basic.localDB import LocalDB
+from basic.services import Services
 import smtplib
 from email.mime.text import MIMEText
 import datetime
+from basic.analysis import Analysis
 
 if __name__ == '__main__':
     """
@@ -11,25 +13,27 @@ if __name__ == '__main__':
 
     # Load configuration from file
     localDB = LocalDB()
+    output = localDB.get_output()
+    output += localDB.process(Analysis.volume_surge)
 
     # Just report stock in focus
 
-
     title = 'Stock Info : ' + datetime.datetime.now().strftime('%Y-%m-%d')
-    msg_content = '<p>' + localDB.get_output() + '</p>'.format(title=title)
+    msg_content = output.format(title=title)
+    msg_content += "<h3>Available Resource</h3>" + Services.get_available_resource()
     message = MIMEText(msg_content, 'html')
 
-    message['From'] = 'Sender Name <beir.bear@gmail.com>'
-    message['To'] = 'Receiver Name <beir.bear@gmail.com>'
-    message['Cc'] = 'Receiver2 Name <beir.bear@gmail.com>'
-    message['Subject'] = 'Any subject'
+    message['From'] = 'STAnalysis Auto Delivery <dcp.prto@gmail.com>'
+    message['To'] = 'Beir Bear <beir.bear@gmail.com>'
+    message['Cc'] = 'Pook <puku_9@hotmail.com>'
+    message['Subject'] = title
 
     msg_full = message.as_string()
 
     server = smtplib.SMTP('smtp.gmail.com:587')
     server.starttls()
-    server.login('beir.bear@gmail.com', '')
-    server.sendmail('beir.bear@gmail.com',
+    server.login('dcp.prto@gmail.com', 'P27xprmnbT')
+    server.sendmail('dcp.prto@gmail.com',
                     ['beir.bear@gmail.com', ],
                     msg_full)
     server.quit()

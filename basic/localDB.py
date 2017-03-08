@@ -1,10 +1,12 @@
 from basic.services import Services
 from basic.definitions import Definitions as DF
+from basic.sInfo import SInfo
+from basic.cInfo import CInfo
 
 class LocalDB(object):
-    __stock = None
-    __consensus = None
-    __output = None
+    __stock = []
+    __consensus = []
+    __output = ""
 
     def __init__(self):
         # Read data from local database
@@ -16,37 +18,28 @@ class LocalDB(object):
 
         import datetime
         today = datetime.datetime.now()
-        # today = datetime.datetime.fromtimestamp(1482233489)
-
-        stock_in_focus = ['WORK', 'BANPU', 'EARTH', 'SAWAD']
-
-        output = "<h2>STOCK INFO</h2>"
 
         # Load data into the system
         with open(DF.get_stock_data_path()) as f:
             for line in f:
-                tmp = line.split('|')
-                data_time = datetime.datetime.fromtimestamp(int(tmp[0][:-3]))
+                item = SInfo(line)
+                self.__stock.append(item)
 
-                if data_time.day == today.day and \
-                   data_time.month == today.month and \
-                   data_time.year == today.year and \
-                   tmp[2] in stock_in_focus:
-                    # print(line)
-                    output += line + "<br>"
+                stock_in_focus = ['WORK', 'BANPU', 'EARTH', 'SAWAD']
 
-        output += "\n\n<h2>CONSENSUS INFO</h2>\n"
+                if item.fetch_time.day == today.day and \
+                   item.fetch_time.month == today.month and \
+                   item.fetch_time.year == today.year and \
+                   item.stock_name in stock_in_focus:
+                    self.__output += item.get_html_short_report()
+
         with open(DF.get_consensus_data_path()) as f:
-            current_date = today.strftime('%Y-%m-%d')
             for line in f:
-                tmp = line.strip().split('|')
-                # print(line)
-                if tmp[-1] == current_date and \
-                   tmp[2] in stock_in_focus:
-                    # print(line)
-                    output += line + "<br>"
-
-        self.__output = output
+                item = CInfo(line)
+                self.__consensus.append(item)
 
     def get_output(self):
         return self.__output
+
+    def process(self, func):
+        return func(self.__stock, self.__consensus)

@@ -6,7 +6,7 @@ from basic.cInfo import CInfo
 class LocalDB(object):
     __stock = []
     __consensus = []
-    __output = ""
+    __output = "<p><h2>Stock In Focus</h2><table><tr><th>Stock In-Hand</th><th>Closed Price</th><th>Changed Priced</th><th>Traded Volume</th><th>Traded Value</th></tr>"
 
     def __init__(self):
         # Read data from local database
@@ -32,6 +32,7 @@ class LocalDB(object):
                    item.fetch_time.year == today.year and \
                    item.stock_name in stock_in_focus:
                     self.__output += item.get_html_short_report()
+            self.__output += "</table></p>"
 
         with open(DF.get_consensus_data_path()) as f:
             for line in f:

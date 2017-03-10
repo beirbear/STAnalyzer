@@ -34,8 +34,8 @@ class SInfo(object):
         self.price_topDay = tmp[8]
         self.price_bottomDay = tmp[9]
         self.price_avgDay = tmp[10]
-        self.trade_volume = int(tmp[11])
-        self.trade_value = int(tmp[12])
+        self.trade_volume = float(tmp[11])
+        self.trade_value = float(tmp[12])
         self.par_value = tmp[13]
         self.price_ceiling = tmp[14]
         self.price_floor = tmp[15]
@@ -49,8 +49,8 @@ class SInfo(object):
         return self.stock_name + ":" + str(self.fetch_time) + ": " + str(self.trade_volume)
 
     def get_html_short_report(self):
-        return "<p><strong>{0}</strong><br>Price: {1} ({2})<br>Traded: {3}  ({4})</p>".format(self.stock_name, self.price_recent, self.price_changed, locale.format("%d", self.trade_volume, grouping=True), locale.format("%d", self.trade_value, grouping=True))
+        return "<tr><td><strong>{0}</strong></td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>".format(self.stock_name, self.price_recent, self.price_changed, locale.format("%d", self.trade_volume, grouping=True), locale.format("%d", self.trade_value, grouping=True))
 
     def get_html_surge_report(self, surged_value):
-        return "<p><strong>{0}</strong><br>Price: {1} ({2})<br>Traded Volume: {3}  ({4}%)</p>".format(self.stock_name, self.price_recent, self.price_changed, locale.format("%d", self.trade_volume, grouping=True), locale.format("%d", surged_value, grouping=True))
+        return "<tr><td><strong>{0}</strong></td><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>".format(self.stock_name, self.price_recent,self.price_changed, locale.format("%d", self.trade_volume, grouping=True), locale.format("%d", surged_value, grouping=True))
 

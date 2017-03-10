@@ -25,4 +25,4 @@ class Services(object):
     @staticmethod
     def get_available_resource():
         total, used, free = Services.disk_usage()
-        return "Disk Size: " + str(int(total)) + "GB<br>Disk Used: " + str(int(used)) + "GB<br>Disk Free: " + str(int(free)) + "GB<br></p>"
+        return '<h3>Disk Resource: {0} GB <em>({1}/{2} GB)</em></h3>'.format( int(free), int(used), int(total))
